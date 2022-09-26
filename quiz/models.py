@@ -16,4 +16,4 @@ class Category(models.Model):
         
 class Quiz(models.Model):
     title= models.CharField(max_length=50,verbose_name='Quiz title')
-    cate
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
