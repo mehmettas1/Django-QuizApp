@@ -45,3 +45,4 @@ class Question(models.Model):
 class Options(models.Model):
     option_text = models.CharField(max_length=200)
     question = models.ForeignKey(Question,on_delete=models.CASCADE)
+    
