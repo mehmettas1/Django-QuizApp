@@ -31,8 +31,8 @@ class Quiz(models.Model):
 class Question(models.Model):
     
     SCALE = {
-        ('B','Beginner')
-        ('I','Intermediate')
+        ('B','Beginner'),
+        ('I','Intermediate'),
         ('A','Advance')
     }
     
@@ -41,3 +41,7 @@ class Question(models.Model):
     difficulty =models.CharField(max_length=1,choices=SCALE)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now_add=True)
+    
+class Options(models.Model):
+    option_text = models.CharField(max_length=200)
+    question = models.ForeignKey(Question,on_delete=models.CASCADE)
