@@ -1,4 +1,6 @@
+from unicodedata import category
 from django.db import models
+
 
 class UpdateCreateDate(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -7,7 +9,8 @@ class UpdateCreateDate(models.Model):
     class Meta:
         abstract = True
 
-class Category(models.Model):
+
+class Category(models.Model):  # Categorys  --> ies
     name = models.CharField(max_length=50, verbose_name='Category Name')
 
     def __str__(self):
@@ -18,18 +21,24 @@ class Category(models.Model):
 
     @property
     def quiz_count(self):
-        return self.quiz_set.count()
+        return self.quizz.count()  # bACKEND ---> 15 quiz
+
 
 class Quiz(UpdateCreateDate):
     title = models.CharField(max_length=50, verbose_name='Quiz title')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    #? delete questions when category changes (models.CASCADE) 👆
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name='quizz')
 
     def __str__(self):
         return self.title
 
     class Meta:
         verbose_name_plural = 'Quizzes'
+
+    @property
+    def question_count(self):
+        return self.question_set.count()
+
 
 class Question(UpdateCreateDate):
 
@@ -45,6 +54,7 @@ class Question(UpdateCreateDate):
 
     def __str__(self):
         return self.title
+
 
 class Option(UpdateCreateDate):
     option_text = models.CharField(max_length=200)

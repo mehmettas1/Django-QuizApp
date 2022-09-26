@@ -1,4 +1,3 @@
-from dataclasses import field
 from rest_framework import serializers
 from .models import (
     Category,
@@ -15,4 +14,16 @@ class CategorySerializer(serializers.ModelSerializer):
             'id',
             'name',
             'quiz_count'
+        )
+
+
+class QuizSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
+    class Meta:
+        model = Quiz
+        fields = (
+            'id',
+            'title',
+            'category',
+            'question_count'
         )
