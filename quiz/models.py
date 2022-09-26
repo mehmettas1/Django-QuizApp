@@ -28,4 +28,16 @@ class Quiz(models.Model):
         verbose_name_plural = 'Quizes'
 
 
-class Question(models.Model)
+class Question(models.Model):
+    
+    SCALE = {
+        ('B','Beginner')
+        ('I','Intermediate')
+        ('A','Advance')
+    }
+    
+    title = models.TextField()
+    quiz = models.ForeignKey(Quiz,on_delete=models.CASCADE)
+    difficulty =models.CharField(max_length=1,choices=SCALE)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now_add=True)
